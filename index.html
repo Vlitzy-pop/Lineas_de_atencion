@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Líneas de Atención</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atma:wght@300;400;500;600;700&family=Libre+Baskerville:wght@400;700&family=Crimson+Text:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+
+
+  <!-- Model Viewer -->
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+
+  <style>
+    :root { --azul:#0f2a44; }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Crimson Text',serif; background:#fff; color:#1f1f1f; line-height:1.7; }
+    h1,h2 { font-family:'Libre Baskerville',serif; }
+    a { text-decoration:none; color:inherit; }
+
+  /* NAVBAR */
+nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: var(--azul);
+  box-shadow: 0 2px 10px rgba(0,0,0,.2);
+  z-index: 1000;
+}
+
+.nav-container {
+  max-width: 1300px;
+  margin: auto;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #fff;
+}
+
+.nav-title {
+  font-family: 'Oswald', serif;
+  font-size: 1.2rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+.nav-links {
+  display: flex;
+  gap: 1.8rem;
+  font-size: .9rem;
+}
+
+/* LINKS */
+.nav-links a {
+  position: relative;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  color: #fff;
+  font-weight: 500;
+}
+
+/* Hover: fondo blanco y texto azul */
+.nav-links a:hover,
+.nav-links a.active {
+  background: #fff;
+  color: var(--azul);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+/* Hover efecto rectángulo */
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0; bottom: 0;
+  width: 100%;
+  height: 0%;
+  background: #fff;
+  border-radius: 6px;
+  z-index: -1;
+  transition: height 0.3s ease;
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after {
+  height: 100%;
+}
+
+/* BOTÓN HAMBURGUESA */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 28px;
+  height: 22px;
+  cursor: pointer;
+}
+
+.nav-toggle span {
+  display: block;
+  height: 3px;
+  background: #fff;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  .nav-links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%; /* ocupar todo el ancho */
+    background: var(--azul);
+    flex-direction: column;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+    padding: 0.5rem 0;
+    z-index: 999;
+    border-radius: 0 0 10px 10px;
+  }
+
+  .nav-links a {
+    padding: 1rem 2rem;
+    border-radius: 0;
+    width: 100%;
+  }
+
+  .nav-toggle {
+    display: flex;
+  }
+
+  /* Cuando el menú está activo */
+  .nav-links.active {
+    max-height: 500px; /* suficientemente alto para mostrar todos los links */
+  }
+}
+
+
+    section { max-width:1180px; margin:auto; padding:8rem 2.5rem 4rem; }
+    #inicio h1 { text-align:center; font-size:2.8rem; margin-bottom:1rem; }
+    .sub { text-align:center; font-style:italic; color:#555; margin-bottom:3rem; }
+    .descripcion { font-size:1.1rem; text-align:justify; margin-bottom:1.8rem; }
+
+    .btn { display:block; width:fit-content; margin:1.5rem auto 3rem; padding:.9rem 2.8rem; background:var(--azul); color:#fff; font-weight:600; border-radius:6px; border:2px solid var(--azul); transition:.3s; }
+    .btn:hover { background:#fff; color:var(--azul); }
+
+    model-viewer { width:100%; height:380px; border-radius:18px; box-shadow:0 16px 30px rgba(0,0,0,.12); margin-bottom:3rem; }
+
+    .info-box { background:#fff; border-radius:18px; padding:1.8rem; box-shadow:0 10px 30px rgba(0,0,0,.08); margin-bottom:4rem; }
+    .info-row { display:flex; justify-content:space-between; padding:.7rem 0; border-bottom:1px solid #eee; }
+    .info-row:last-child { border-bottom:none; }
+    .label { font-weight:600; display:flex; gap:.5rem; }
+
+    .content-block { margin-bottom:5rem; }
+    .content-block h2 { font-size:1.9rem; margin-bottom:1.2rem; }
+    .content-block p { font-size:1.1rem; margin-bottom:1rem; text-align:justify; }
+
+    .quote { font-size:1.3rem; font-style:italic; border-left:4px solid var(--azul); padding-left:1.5rem; margin:2rem 0; }
+
+    .accordion { margin-top:2rem; border-radius:16px; overflow:hidden; box-shadow:0 10px 24px rgba(0,0,0,.1); }
+    .accordion-header { background:var(--azul); color:#fff; padding:1.2rem 1.5rem; font-family:'Libre Baskerville',serif; display:flex; justify-content:space-between; align-items:center; cursor:pointer; border:none; width:100%; }
+    .accordion-content { max-height:0; overflow:hidden; background:#fff; transition:max-height .4s ease; padding:0 1.5rem; }
+    .accordion-content p { margin:1rem 0; }
+
+    /* CARRUSEL */
+.carousel {
+  position: relative;
+  overflow: hidden;
+  border-radius: 22px;
+  box-shadow: 0 18px 36px rgba(0,0,0,.15);
+  margin: 4rem 0;
+
+  width: 100%;
+  height: auto; /* altura se ajusta según la imagen */
+}
+
+.carousel-track {
+  display: flex;
+  transition: transform .6s ease;
+}
+
+.carousel img {
+  width: 100%;
+  height: auto; /* mantiene la proporción original de la imagen */
+  object-fit: cover;
+  flex-shrink: 0;
+  display: block; /* evita espacios abajo por inline-block */
+}
+
+/* Botones del carrusel */
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(15,42,68,.8);
+  color: #fff;
+  border: none;
+  font-size: 1.6rem;
+  padding: .4rem .9rem;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.carousel-btn.prev { left: 14px; }
+.carousel-btn.next { right: 14px; }
+
+/* RESPONSIVE: solo ajustar padding o tamaño de botones si quieres */
+@media (max-width: 768px) {
+  .carousel-btn { font-size: 1.3rem; padding: .3rem .7rem; }
+}
+
+    @media (max-width: 480px) {
+  .carousel-btn { font-size: 1.1rem; padding: .2rem .5rem; }
+}
+
+    /* FADE-IN ANIMATION FOR ELEMENTS APPEARING IN VIEWPORT */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(14px);
+      /* Increased durations by 2000ms to make animation 2s slower */
+      transition: opacity 2800ms cubic-bezier(.2,.9,.2,1), transform 2620ms cubic-bezier(.2,.9,.2,1);
+      will-change: opacity, transform;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .fade-in { transition: none; transform: none; }
+    }
+
+
+    .fragmento { background:#f5f7f9; border-radius:22px; padding:3rem; margin:5rem 0; box-shadow:0 14px 30px rgba(0,0,0,.08); text-align:center; }
+    .fragmento p { font-size:1.3rem; font-style:italic; max-width:800px; margin:auto; }
+
+    .mirar-nuevo { display:grid; grid-template-columns:1.2fr 0.8fr; gap:3.5rem; margin-top:2.5rem; align-items:flex-start; }
+    .mirar-nuevo-texto p { font-size:1.1rem; margin-bottom:1.2rem; text-align:justify; }
+
+    .hoja {
+      background-image: url("Imagenes/Hoja_de_papel.jpg"); /* AQUÍ VA TU IMAGEN */
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      height: 420px;
+      padding: 3rem 2.5rem;
+      border-radius: 6px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.12), inset 0 0 0 1px #e5e5e5;
+      font-family: 'Libre Baskerville', serif;
+      font-size: 1.6rem;
+      color: var(--azul);
+    }
+
+    .cursor { margin-left: 4px; animation: blink 1s infinite; }
+    @keyframes blink { 0%, 50% { opacity: 1; } 50.01%, 100% { opacity: 0; } }
+
+    @media (max-width: 900px) {
+      .mirar-nuevo { grid-template-columns:1fr; }
+      .hoja { height:360px; }
+    }
+
+    .adquierelo-cuadro {
+  background: var(--azul); /* azul oscuro */
+  color: #fff;
+  font-family: 'PT Sans', sans-serif;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 3rem;
+  width: 100%;  /* ancho del cuadro */
+  border-radius: 18px; /* esquinas redondeadas */
+  box-shadow: 0 12px 30px rgba(0,0,0,.15);
+  margin: 5rem auto; /* centrado */
+}
+
+.adquierelo-cuadro h2 {
+  font-size: 2rem;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.adquierelo-cuadro p {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+}
+
+/* Botón */
+.btn-cuadro {
+  display: inline-block;
+  padding: 0.8rem 2rem;
+  font-weight: 700;
+  font-size: 1rem;
+  background: #fff;
+  color: var(--azul);
+  border-radius: 6px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.btn-cuadro:hover {
+  background: var(--azul);
+  color: #fff;
+  border: 2px solid #fff; /* solo en hover */
+}
+
+
+    /* FOOTER STYLE COMPLETO */
+footer {
+     border-top: 2px solid #333;
+  background: #fff; /* Fondo blanco */
+  padding: 4rem 2rem;
+  box-shadow: 0 -2px 15px rgba(0,0,0,0.05);
+  font-family: 'Crimson Text', serif;
+  color: #333;
+}
+
+footer .footer-container {
+  max-width: 1100px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  text-align: center;
+}
+
+/* Texto intro redes sociales */
+footer .footer-intro p {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+/* Iconos sociales */
+footer .footer-socials {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 1.6rem;
+  color: #555;
+}
+
+footer .footer-socials a {
+  color: inherit;
+  transition: color 0.3s, transform 0.3s;
+}
+
+footer .footer-socials a:hover {
+  color: #0f2a44; /* Azul principal */
+  transform: scale(1.2);
+}
+
+/* Información adicional */
+footer .footer-info p {
+  font-size: 0.95rem;
+  color: #666;
+  max-width: 850px;
+  line-height: 1.7;
+  margin: 1rem 0;
+}
+
+/* Título y derechos */
+footer .footer-text h2 {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 1.4rem;
+  letter-spacing: 0.05em;
+  color: #0f2a44;
+  margin-bottom: 0.3rem;
+}
+
+footer .footer-text p {
+  font-size: 0.85rem;
+  color: #777;
+  letter-spacing: 0.02em;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  footer .footer-socials {
+    font-size: 1.3rem;
+  }
+  footer .footer-info p {
+    font-size: 0.9rem;
+  }
+  footer .footer-text h2 {
+    font-size: 1.2rem;
+  }
+}
+
+  </style>
+</head>
+
+<body>
+
+<nav>
+  <div class="nav-container">
+    <div class="nav-title">LÍNEAS DE ATENCIÓN</div>
+    <div class="nav-links" id="nav-links">
+      <a href="index.html" class="active">Inicio</a>
+      <a href="#para-quien">Para Quién</a>
+      <a href="#reflexiones">Reflexiones</a>
+      <a href="#autor">Autor</a>
+      <a href="#adquirir">Adquirir</a>
+    </div>
+    <div class="nav-toggle" id="nav-toggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+</nav>
+
+
+<section id="inicio">
+
+<h1 class="fade-in">Líneas de Atención</h1>
+<p class="sub fade-in">Educar es sostener, escuchar y no rendirse</p>
+
+<div class="descripcion fade-in">
+<p><strong>Líneas de Atención</strong> no es un simple manual pedagógico, es un testimonio vivo del poder transformador de la educación.
+Surge desde la experiencia directa en aulas reales, donde enseñar implica mucho más que transmitir contenidos:
+significa acompañar, sostener y creer incluso en contextos de profunda complejidad.</p>
+</div>
+
+<a href="#modelo" class="btn fade-in">Descubre el libro</a>
+
+<div class="descripcion fade-in">
+<p>Este libro invita a mirar la educación desde su dimensión más humana,
+reconociendo las dificultades del aula sin perder de vista su enorme capacidad de transformación.</p>
+</div>
+
+<model-viewer id="modelo" class="fade-in"
+src="Libro_Modelo.glb"
+camera-controls auto-rotate
+camera-orbit="90deg 75deg 5m"
+scale="0.6 0.6 0.6">
+</model-viewer>
+
+<div class="info-box fade-in">
+  <div class="info-row"><div class="label">📘 ISBN-13</div><div>979-8900307244</div></div>
+  <div class="info-row"><div class="label">📅 Fecha de publicación</div><div>8 diciembre 2025</div></div>
+  <div class="info-row"><div class="label">🌎 Idioma</div><div>Español</div></div>
+  <div class="info-row"><div class="label">🏢 Editorial</div><div>Editorial Mundo Latino</div></div>
+  <div class="info-row"><div class="label">📚 Formato</div><div>Tapa blanda</div></div>
+  <div class="info-row"><div class="label">📖 Páginas</div><div>112 páginas</div></div>
+</div>
+
+<!-- BLOQUE -->
+<div class="content-block fade-in">
+<h2>Educación como acto de valentía</h2>
+<p class="quote">Educar es un acto de valentía.</p>
+<p>Enseñar implica permanecer cuando otros se rinden, escuchar cuando no hay respuestas claras
+y creer incluso cuando todo parece indicar lo contrario.</p>
+
+  <div class="fragmento fade-in">
+  <p>
+    “Educar no siempre es dar respuestas,  
+    a veces es aprender a sostener el silencio.”
+  </p>
+</div>
+</div>
+
+<!-- BLOQUE LO QUE REPRESENTA ESTE LIBRO -->
+<div class="content-block fade-in">
+<h2>Lo que representa este libro</h2>
+<p class="quote">Atender también es decidir qué no ignorar.</p>
+
+<p>Este libro no idealiza la educación ni oculta sus dificultades.
+Reconoce la complejidad del aula, las limitaciones del sistema y las heridas invisibles
+que muchos estudiantes cargan en silencio.</p>
+
+<div class="accordion">
+  <button class="accordion-header">¿Qué realidades aborda este libro?<span>+</span></button>
+  <div class="accordion-content">
+    <p>
+      <strong>Líneas de Atención</strong> aborda contextos educativos marcados por la
+      falta de recursos, la violencia escolar, la exclusión y el desgaste emocional
+      del docente. 
+      No desde la denuncia vacía, sino desde la experiencia cotidiana en aulas reales,
+      donde cada decisión pedagógica implica una responsabilidad humana.
+    </p>
+  </div>
+
+  <button class="accordion-header">¿Desde qué experiencia se escribe?<span>+</span></button>
+  <div class="accordion-content">
+    <p>
+      El libro surge del trabajo directo en escuelas y comunidades con carencias,
+      donde la educación se vive en condiciones complejas y desiguales.
+      Las reflexiones nacen del contacto cercano con estudiantes, colegas y familias
+      que marcaron profundamente la práctica del autor.
+    </p>
+  </div>
+
+  <button class="accordion-header">¿Qué propone frente a estos desafíos?<span>+</span></button>
+  <div class="accordion-content">
+    <p>
+      Más que ofrecer soluciones cerradas, el libro propone herramientas humanas:
+      la escucha, la observación atenta y la capacidad de sostener procesos difíciles.
+      Invita a ejercer la educación desde la conciencia, la sensibilidad
+      y el compromiso ético con cada estudiante.
+    </p>
+  </div>
+</div><br><br>
+
+<!-- BLOQUE DE HOJA CON EFECTO DE ESCRITURA -->
+<div class="mirar-nuevo fade-in">
+  <div class="mirar-nuevo-texto">
+    <h2>La atención como herramienta educativa</h2>
+    <p class="quote">Aprender a pausar, observar y valorar lo que no siempre se ve.</p>
+
+    <p>
+      Afinar la atención implica aprender a pausar en medio de la rutina,
+      reconocer los gestos mínimos y dar valor a aquello que no siempre
+      se manifiesta de forma evidente.
+    </p>
+    <p>
+      Educar también significa saber cuándo detenerse,
+      cuándo observar sin intervenir
+      y cuándo sostener procesos sin prisa.
+    </p>
+    <p>
+      Esta mirada atenta permite comprender el aula
+      como un espacio profundamente humano,
+      donde cada silencio también comunica.
+    </p>
+  </div>
+
+  <div class="hoja">
+    <span id="texto-escritura"></span><span class="cursor">|</span>
+  </div>
+</div>
+
+
+<!-- CARRUSEL -->
+<div class="carousel fade-in">
+  <div class="carousel-track">
+    <img src="Imagenes/Carrusel_1.png">
+    <img src="Imagenes/Carrusel_2.png">
+    <img src="Imagenes/Carrusel_3.png">
+  </div>
+  <button class="carousel-btn prev">‹</button>
+  <button class="carousel-btn next">›</button>
+</div>
+
+<!-- DIV CUADRADO PROMOCIONAL -->
+<div class="adquierelo-cuadro">
+  <h2>ADQUIÉRELO</h2>
+  <p>Transforma tu educación con este libro.</p>
+  <a href="#adquirir" class="btn-cuadro">Adquirir ahora</a>
+</div>
+</section>
+
+
+
+<!-- FOOTER -->
+<footer class="fade-in">
+  <div class="footer-container">
+    
+    <!-- Introducción redes sociales -->
+    <div class="footer-intro">
+      <p>Síguenos en nuestras redes sociales para conocer más sobre nuestras actividades, reflexiones y novedades del libro.</p>
+    </div>
+
+    <!-- Iconos -->
+    <div class="footer-socials">
+      <a href="#" target="_blank" aria-label="TikTok">
+  <img src="Imagenes/tiktok_logo.png" alt="TikTok" style="width:24px; height:24px;">
+</a>
+
+      <a href="#" target="_blank" aria-label="Instagram"><i class="fa fa-instagram" style="font-size:24px"></i></a>
+      <a href="#" target="_blank" aria-label="Facebook"><i class="fa fa-facebook" style="font-size:24px"></i></a>
+    </div>
+
+    <!-- Información adicional -->
+    <div class="footer-info">
+      <p>Líneas de Atención es un proyecto que busca transformar la educación a través de la reflexión, la atención plena y la experiencia en aula. Nuestro objetivo es acompañar a docentes, estudiantes y familias en un recorrido de aprendizaje significativo.</p>
+    </div>
+
+    <!-- Título y derechos -->
+    <div class="footer-text">
+      <h2>LÍNEAS DE ATENCIÓN</h2>
+      <p>© 2025 · Todos los derechos reservados</p>
+    </div>
+
+  </div>
+</footer>
+
+
+<script>
+    const navToggle = document.getElementById("nav-toggle");
+const navLinks = document.getElementById("nav-links");
+
+navToggle.addEventListener("click", () => {
+  navLinks.classList.toggle("active");
+});
+/* ACORDEONES */
+const accordionHeaders = document.querySelectorAll('.accordion-header');
+accordionHeaders.forEach(header => {
+  header.addEventListener('click', () => {
+    const content = header.nextElementSibling;
+    const icon = header.querySelector('span');
+    const isOpen = content.style.maxHeight && content.style.maxHeight !== '0px';
+
+    document.querySelectorAll('.accordion-content').forEach(c => { c.style.maxHeight = null; });
+    document.querySelectorAll('.accordion-header span').forEach(i => { i.textContent = '+'; });
+
+    if (!isOpen) { content.style.maxHeight = content.scrollHeight + 'px'; icon.textContent = '−'; }
+  });
+});
+
+/* Carrusel */
+const track=document.querySelector('.carousel-track');
+const slides=track.children;
+let i=0;
+document.querySelector('.carousel-btn.next').onclick=()=>{ i=(i+1)%slides.length; track.style.transform=`translateX(-${i*100}%)`; };
+document.querySelector('.carousel-btn.prev').onclick=()=>{ i=(i-1+slides.length)%slides.length; track.style.transform=`translateX(-${i*100}%)`; };
+
+/* Escritura automática */
+const fraseEscritura = "Pensar, detenerse, atender.";
+const salidaTexto = document.getElementById("texto-escritura");
+let indice = 0;
+function escribirTexto() {
+  if (!salidaTexto) return;
+  if (indice < fraseEscritura.length) {
+    salidaTexto.textContent += fraseEscritura.charAt(indice);
+    indice++;
+    setTimeout(escribirTexto, 120);
+  } else {
+    setTimeout(() => { salidaTexto.textContent = ""; indice = 0; escribirTexto(); }, 5000);
+  }
+}
+escribirTexto();
+
+/* Fade-in on scroll using IntersectionObserver */
+(function(){
+  const elements = document.querySelectorAll('.fade-in');
+  if (!elements.length) return;
+
+  if (!('IntersectionObserver' in window)) {
+    // Fallback: reveal all
+    elements.forEach(el => el.classList.add('visible'));
+    return;
+  }
+
+  const observer = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { root: null, rootMargin: '0px 0px -10% 0px', threshold: 0.12 });
+
+  elements.forEach(el => observer.observe(el));
+})();
+</script>
+
+</body>
+</html>
