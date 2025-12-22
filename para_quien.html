@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Para quién · Líneas de Atención</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Crimson+Text:wght@400;600&family=Oswald:wght@200..700&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root { --azul:#0f2a44; }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family:'Crimson Text', serif;
+      background:#fff;
+      color:#1f1f1f;
+      line-height:1.7;
+    }
+    h1,h2 { font-family:'Libre Baskerville', serif; }
+    a { text-decoration:none; color:inherit; }
+
+    /* =========================
+   NAVBAR LIMPIO
+========================= */
+nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: var(--azul);
+  z-index: 1000;
+}
+
+/* FRANJA BLANCA SÓLIDA + DESVANECIDO SUAVE */
+nav::after {
+  content: "";
+  position: absolute;
+  bottom: -30px;
+  left: 0;
+  width: 100%;
+  height: 30px;
+  background: linear-gradient(
+    to bottom,
+    rgba(255,255,255,1) 0%,
+    rgba(255,255,255,1) 50%,
+    rgba(255,255,255,0.7) 75%,
+    rgba(255,255,255,0) 100%
+  );
+  pointer-events: none;
+}
+
+
+/* =========================
+   CONTENEDOR
+========================= */
+.nav-container {
+  max-width: 1300px;
+  margin: auto;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #fff;
+  
+}
+
+.nav-title {
+  font-family: 'Oswald', serif;
+  font-size: 1.2rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+/* =========================
+   LINKS
+========================= */
+.nav-links {
+  display: flex;
+  gap: 1.8rem;
+  font-size: .9rem;
+}
+
+.nav-links a {
+  position: relative;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  color: #fff;
+  font-weight: 500;
+}
+
+/* Hover */
+.nav-links a:hover,
+.nav-links a.active {
+  background: transparent;
+  color: var(--azul);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 0%;
+  background: #fff;
+  border-radius: 6px;
+  z-index: -1;
+  transition: height 0.5s ease;
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after {
+  height: 100%;
+}
+
+/* =========================
+   BOTÓN HAMBURGUESA
+========================= */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 28px;
+  height: 22px;
+  cursor: pointer;
+}
+
+.nav-toggle span {
+  display: block;
+  height: 3px;
+  background: #fff;
+  border-radius: 2px;
+  transition: all 0.5s ease;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 1024px) {
+  .nav-links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: var(--azul);
+    flex-direction: column;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+    padding: 0;
+    z-index: 999;
+    border-radius: 0 0 10px 10px;
+  }
+
+  .nav-links a {
+    padding: 1rem 2rem;
+    border-radius: 0;
+    width: 100%;
+  }
+
+  .nav-toggle {
+    display: flex;
+  }
+
+  .nav-links.active {
+    max-height: 500px;
+    border: 10px solid var(--azul);
+  }
+}
+
+
+    /* =========================
+       CONTENIDO
+    ========================= */
+    section {
+      max-width: 1100px;
+      margin: auto;
+      padding: 8rem 2.5rem 4rem;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2.6rem;
+      margin-bottom: 1rem;
+    }
+
+    .sub {
+      text-align:center;
+      font-style: italic;
+      color:#555;
+      margin-bottom:4rem;
+    }
+
+    .content-block {
+      margin-bottom:4.5rem;
+    }
+
+    .content-block p {
+      font-size:1.1rem;
+      margin-bottom:1.3rem;
+      text-align:justify;
+    }
+
+    .quote {
+      font-size:1.35rem;
+      font-style:italic;
+      border-left:4px solid var(--azul);
+      padding-left:1.5rem;
+      margin:2rem 0;
+    }
+
+    /* =========================
+       TARJETAS DE PERFIL
+    ========================= */
+    .cards {
+  display: flex;
+  flex-direction: column;
+  gap: 2.2rem;
+  margin-top: 3rem;
+}
+
+    .card {
+  width: 100%;
+  background:#fff;
+  border-radius:18px;
+  padding:2.4rem 2.6rem;
+  box-shadow:0 12px 30px rgba(0,0,0,.12);
+}
+
+
+    .card h3 {
+      font-family:'Libre Baskerville', serif;
+      color:var(--azul);
+      margin-bottom:.8rem;
+      font-size:1.2rem;
+    }
+
+    .card p {
+      font-size:1.05rem;
+      text-align:justify;
+    }
+
+        /* FOOTER STYLE COMPLETO */
+footer {
+     border-top: 2px solid #333;
+  background: #fff; /* Fondo blanco */
+  padding: 4rem 2rem;
+  box-shadow: 0 -2px 15px rgba(0,0,0,0.05);
+  font-family: 'Crimson Text', serif;
+  color: #333;
+}
+
+footer .footer-container {
+  max-width: 1100px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  text-align: center;
+}
+
+/* Texto intro redes sociales */
+footer .footer-intro p {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+/* Iconos sociales */
+footer .footer-socials {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 1.6rem;
+  color: #555;
+}
+
+footer .footer-socials a {
+  color: inherit;
+  transition: color 0.3s, transform 0.3s;
+}
+
+footer .footer-socials a:hover {
+  color: #0f2a44; /* Azul principal */
+  transform: scale(1.2);
+}
+
+/* Información adicional */
+footer .footer-info p {
+  font-size: 0.95rem;
+  color: #666;
+  max-width: 850px;
+  line-height: 1.7;
+  margin: 1rem 0;
+}
+
+/* Título y derechos */
+footer .footer-text h2 {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 1.4rem;
+  letter-spacing: 0.05em;
+  color: #0f2a44;
+  margin-bottom: 0.3rem;
+}
+
+footer .footer-text p {
+  font-size: 0.85rem;
+  color: #777;
+  letter-spacing: 0.02em;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  footer .footer-socials {
+    font-size: 1.3rem;
+  }
+  footer .footer-info p {
+    font-size: 0.9rem;
+  }
+  footer .footer-text h2 {
+    font-size: 1.2rem;
+  }
+}
+
+  </style>
+</head>
+
+<body>
+<nav>
+  <div class="nav-container">
+    <div class="nav-title">LÍNEAS DE ATENCIÓN</div>
+    <div class="nav-links" id="nav-links">
+      <a href="index.html">Inicio</a>
+      <a href="para_quien.html" class="active">Para Quién</a>
+      <a href="#autor">Autor</a>
+      <a href="#adquirir">Adquirir</a>
+    </div>
+    <div class="nav-toggle" id="nav-toggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+</nav>
+
+<section>
+
+  <h1>¿Para quién es este libro?</h1>
+  <p class="sub">Una lectura honesta para quienes eligen no mirar hacia otro lado</p>
+
+  <div class="content-block">
+    <p class="quote">
+      Este no es un libro para quien busca recetas rápidas.  
+      Es para quien entiende que educar también cansa, duele y transforma.
+    </p>
+
+    <p>
+      <strong>Líneas de Atención</strong> está dirigido a personas que viven la educación
+      como una experiencia profundamente humana.
+      No promete soluciones inmediatas ni discursos idealizados,
+      sino una mirada consciente sobre lo que ocurre en el aula,
+      incluso cuando no hay respuestas claras.
+    </p>
+  </div>
+
+  <div class="cards">
+
+    <div class="card">
+      <h3>Docentes en ejercicio</h3>
+      <p>
+        Para maestras y maestros que trabajan en contextos reales,
+        donde la enseñanza implica sostener procesos complejos,
+        gestionar emociones y permanecer incluso cuando el desgaste aparece.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>Estudiantes de pedagogía</h3>
+      <p>
+        Para quienes se están formando como docentes
+        y desean comprender la educación más allá de teorías y métodos,
+        reconociendo la dimensión ética y humana del aula.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>Directivos y orientadores</h3>
+      <p>
+        Para quienes toman decisiones educativas
+        y necesitan comprender aquello que no siempre se mide:
+        el silencio, la exclusión, la resistencia y la escucha.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>Lectores sensibles</h3>
+      <p>
+        Para madres, padres y personas interesadas en la educación
+        como espacio de cuidado, acompañamiento
+        y transformación personal y social.
+      </p>
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- FOOTER -->
+<footer class="fade-in">
+  <div class="footer-container">
+    
+    <!-- Introducción redes sociales -->
+    <div class="footer-intro">
+      <p>Síguenos en TikTok para conocer más sobre nuestras actividades, reflexiones y novedades del libro.</p>
+    </div>
+
+    <!-- Iconos -->
+    <div class="footer-socials">
+      <a href="#" target="_blank" aria-label="TikTok">
+        <img src="Imagenes/Tiktok_logo.png" alt="TikTok" style="width:24px; height:24px;">
+      </a>
+    </div>
+
+    <!-- Información de contacto -->
+    <div class="footer-contact">
+      <h3>Información de contacto</h3>
+      <p>📞 +1 707 393 1434</p>
+    </div>
+
+    <!-- Información adicional -->
+    <div class="footer-info">
+      <p>
+        Líneas de Atención es un proyecto que busca transformar la educación a través de la reflexión,
+        la atención plena y la experiencia en aula. Nuestro objetivo es acompañar a docentes,
+        estudiantes y familias en un recorrido de aprendizaje significativo.
+      </p>
+    </div>
+
+    <!-- Título y derechos -->
+    <div class="footer-text">
+      <h2>LÍNEAS DE ATENCIÓN</h2>
+      <p>© 2025 · Todos los derechos reservados</p>
+    </div>
+
+  </div>
+</footer>
+
+<script>
+  const navToggle = document.getElementById("nav-toggle");
+  const navLinks = document.getElementById("nav-links");
+  navToggle.addEventListener("click", () => {
+    navLinks.classList.toggle("active");
+  });
+
+  window.onbeforeunload = function () {
+    window.scrollTo(0, 0);
+  };
+</script>
+
+</body>
+</html>
