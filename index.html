@@ -24,16 +24,39 @@
     h1,h2 { font-family:'Libre Baskerville',serif; }
     a { text-decoration:none; color:inherit; }
 
-  /* NAVBAR */
+  /* =========================
+   NAVBAR LIMPIO
+========================= */
 nav {
   position: fixed;
   top: 0;
   width: 100%;
   background: var(--azul);
-  box-shadow: 0 2px 10px rgba(0,0,0,.2);
   z-index: 1000;
 }
 
+/* FRANJA BLANCA SÓLIDA + DESVANECIDO SUAVE */
+nav::after {
+  content: "";
+  position: absolute;
+  bottom: -30px;
+  left: 0;
+  width: 100%;
+  height: 30px;
+  background: linear-gradient(
+    to bottom,
+    rgba(255,255,255,1) 0%,
+    rgba(255,255,255,1) 50%,
+    rgba(255,255,255,0.7) 75%,
+    rgba(255,255,255,0) 100%
+  );
+  pointer-events: none;
+}
+
+
+/* =========================
+   CONTENEDOR
+========================= */
 .nav-container {
   max-width: 1300px;
   margin: auto;
@@ -51,13 +74,15 @@ nav {
   text-transform: uppercase;
 }
 
+/* =========================
+   LINKS
+========================= */
 .nav-links {
   display: flex;
   gap: 1.8rem;
   font-size: .9rem;
 }
 
-/* LINKS */
 .nav-links a {
   position: relative;
   padding: 0.5rem 1rem;
@@ -67,25 +92,25 @@ nav {
   font-weight: 500;
 }
 
-/* Hover: fondo blanco y texto azul */
+/* Hover */
 .nav-links a:hover,
 .nav-links a.active {
-  background: #fff;
+  background: #d3d6d7;
   color: var(--azul);
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
-/* Hover efecto rectángulo */
 .nav-links a::after {
   content: "";
   position: absolute;
-  left: 0; bottom: 0;
+  left: 0;
+  bottom: 0;
   width: 100%;
   height: 0%;
   background: #fff;
   border-radius: 6px;
   z-index: -1;
-  transition: height 0.3s ease;
+  transition: height 0.5s ease;
 }
 
 .nav-links a:hover::after,
@@ -93,7 +118,9 @@ nav {
   height: 100%;
 }
 
-/* BOTÓN HAMBURGUESA */
+/* =========================
+   BOTÓN HAMBURGUESA
+========================= */
 .nav-toggle {
   display: none;
   flex-direction: column;
@@ -108,22 +135,24 @@ nav {
   height: 3px;
   background: #fff;
   border-radius: 2px;
-  transition: all 0.3s ease;
+  transition: all 0.5s ease;
 }
 
-/* RESPONSIVE */
+/* =========================
+   RESPONSIVE
+========================= */
 @media (max-width: 1024px) {
   .nav-links {
     position: absolute;
     top: 100%;
     left: 0;
-    width: 100%; /* ocupar todo el ancho */
+    width: 100%;
     background: var(--azul);
     flex-direction: column;
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.4s ease;
-    padding: 0.5rem 0;
+    padding: 0;
     z-index: 999;
     border-radius: 0 0 10px 10px;
   }
@@ -138,11 +167,11 @@ nav {
     display: flex;
   }
 
-  /* Cuando el menú está activo */
   .nav-links.active {
-    max-height: 500px; /* suficientemente alto para mostrar todos los links */
+    max-height: 500px;
   }
 }
+
 
 
     section { max-width:1180px; margin:auto; padding:8rem 2.5rem 4rem; }
@@ -480,16 +509,13 @@ que muchos estudiantes cargan en silencio.</p>
     </p>
   </div>
 
-  <div class="hoja">
+  <div class="hoja fade-in">
     <span id="texto-escritura"></span><span class="cursor">|</span>
   </div>
 </div>
 
-
-<!-- Carrusel eliminado -->
-
 <!-- DIV CUADRADO PROMOCIONAL -->
-<div class="adquierelo-cuadro">
+<div class="adquierelo-cuadro fade-in">
   <h2>ADQUIÉRELO</h2>
   <p>Transforma tu educación con este libro.</p>
   <a href="#adquirir" class="btn-cuadro">Adquirir ahora</a>
