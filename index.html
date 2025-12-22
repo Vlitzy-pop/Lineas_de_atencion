@@ -95,7 +95,7 @@ nav::after {
 /* Hover */
 .nav-links a:hover,
 .nav-links a.active {
-  background: #ffffff;
+  background: transparent;
   color: var(--azul);
   box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
@@ -115,7 +115,7 @@ nav::after {
 
 .nav-links a:hover::after,
 .nav-links a.active::after {
-  height: 80%;
+  height: 100%;
 }
 
 /* =========================
@@ -153,6 +153,7 @@ nav::after {
     overflow: hidden;
     transition: max-height 0.4s ease;
     padding: 0;
+    
     z-index: 999;
     border-radius: 0 0 10px 10px;
   }
@@ -169,6 +170,7 @@ nav::after {
 
   .nav-links.active {
     max-height: 500px;
+    border: 10px solid var(--azul);
   }
 }
 
@@ -385,7 +387,7 @@ footer .footer-text p {
     <div class="nav-title">LÍNEAS DE ATENCIÓN</div>
     <div class="nav-links" id="nav-links">
       <a href="index.html" class="active">Inicio</a>
-      <a href="#para-quien">Para Quién</a>
+      <a href="para_quien.html">Para Quién</a>
       <a href="#autor">Autor</a>
       <a href="#adquirir">Adquirir</a>
     </div>
@@ -634,8 +636,6 @@ escribirTexto();
 
 </body>
 </html>
-
-
 
 
 
