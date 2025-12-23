@@ -153,7 +153,7 @@ nav::after {
     transition: max-height 0.4s ease;
     padding: 0;
     z-index: 999;
-    border-radius: 0 0 10px 10px;
+    border-radius: 0 0 10px 10px;    
   }
 
   .nav-links a {
@@ -266,15 +266,16 @@ nav::after {
   border-radius: 12px;
   margin-top: -20%;
   margin-bottom: -20%;
+  
 }
 
 
 /* =========================
    RESPONSIVE
 ========================= */
-
 @media (max-width: 900px) {
   .card {
+    display: flex;
     flex-direction: column;
     padding: 2.2rem;
   }
@@ -282,6 +283,17 @@ nav::after {
   .card-image {
     order: 2;
     margin-top: 1.5rem;
+    width: 100%;
+    overflow: hidden; /* recorta la imagen que sobresale */
+  }
+
+  .card-image img {
+    width: 100%;
+    height: auto;
+    margin-top: -20%;   /* recorta la parte superior */
+    margin-bottom: -20%; /* recorta la parte inferior */
+    display: block;
+    object-fit: cover; /* mantiene el recorte proporcional */
   }
 
   .card-text {
@@ -296,6 +308,8 @@ nav::after {
     font-size: 1rem;
   }
 }
+
+
 
 
         /* FOOTER STYLE COMPLETO */
@@ -336,7 +350,7 @@ footer .footer-socials {
 
 footer .footer-socials a {
   color: inherit;
-  transition: color 0.3s, transform 0.5s;
+  transition: color 0.3s, transform 0.3s;
 }
 
 footer .footer-socials a:hover {
@@ -580,5 +594,3 @@ footer .footer-text p {
 
 </body>
 </html>
-
-
