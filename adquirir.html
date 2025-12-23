@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Para quién · Líneas de Atención</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Crimson+Text:wght@400;600&family=Oswald:wght@200..700&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+ <link rel="icon" href="Imagenes/Book_icon.ico" type="image/x-icon">
+  <style>
+    :root { --azul:#0f2a44; }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family:'Crimson Text', serif;
+      background:#fff;
+      color:#1f1f1f;
+      line-height:1.7;
+    }
+    h1,h2 { font-family:'Libre Baskerville', serif; }
+    a { text-decoration:none; color:inherit; }
+
+    /* =========================
+   NAVBAR LIMPIO
+========================= */
+nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: var(--azul);
+  z-index: 1000;
+}
+
+/* FRANJA BLANCA SÓLIDA + DESVANECIDO SUAVE */
+nav::after {
+  content: "";
+  position: absolute;
+  bottom: -30px;
+  left: 0;
+  width: 100%;
+  height: 30px;
+  background: linear-gradient(
+    to bottom,
+    rgba(255,255,255,1) 0%,
+    rgba(255,255,255,1) 50%,
+    rgba(255,255,255,0.7) 75%,
+    rgba(255,255,255,0) 100%
+  );
+  pointer-events: none;
+}
+
+
+/* =========================
+   CONTENEDOR
+========================= */
+.nav-container {
+  max-width: 1300px;
+  margin: auto;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #fff;
+  
+}
+
+.nav-title {
+  font-family: 'Oswald', serif;
+  font-size: 1.2rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+
+/* =========================
+   LINKS
+========================= */
+.nav-links {
+  display: flex;
+  gap: 1.8rem;
+  font-size: .9rem;
+}
+
+.nav-links a {
+  position: relative;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  color: #fff;
+  font-weight: 500;
+}
+
+/* Hover */
+.nav-links a:hover,
+.nav-links a.active {
+  background: transparent;
+  color: var(--azul);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 0%;
+  background: #fff;
+  border-radius: 6px;
+  z-index: -1;
+  transition: height 0.5s ease;
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after {
+  height: 100%;
+}
+
+/* =========================
+   BOTÓN HAMBURGUESA
+========================= */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 28px;
+  height: 22px;
+  cursor: pointer;
+}
+
+.nav-toggle span {
+  display: block;
+  height: 3px;
+  background: #fff;
+  border-radius: 2px;
+  transition: all 0.5s ease;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+@media (max-width: 1024px) {
+  .nav-links {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: var(--azul);
+    flex-direction: column;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+    padding: 0;
+    z-index: 999;
+    border-radius: 0 0 10px 10px;   
+    border-left: 10px solid var(--azul);
+    border-right: 10px solid var(--azul);
+  }
+
+  .nav-links a {
+    padding: 1rem 2rem;
+    border-radius: 0;
+    width: 100%;
+  }
+
+  .nav-toggle {
+    display: flex;
+  }
+
+  .nav-links.active {
+    max-height: 500px;
+    
+    border-left: 10px solid var(--azul);
+    border-right: 10px solid var(--azul);
+    border-bottom: 10px solid var(--azul);
+  }
+}
+
+/* =========================
+   CONTENIDO - ADQUIRIR
+========================= */
+#adquirir {
+  max-width: 1100px;
+  margin: auto;
+  padding: 8rem 2.5rem 4rem;
+}
+
+#adquirir h1 {
+  text-align: center;
+  font-size: 2.6rem;
+  margin-bottom: 1rem;
+}
+
+#adquirir .sub {
+  text-align: center;
+  font-style: italic;
+  color: #555;
+  margin-bottom: 4rem;
+}
+
+/* =========================
+   CARDS
+========================= */
+.cards {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+/* CARD GENERAL */
+.card {
+  position: relative;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border-radius: 14px;
+  padding: 2rem;
+  font-family: 'PT Sans', sans-serif;
+  overflow: hidden;
+  border: 4px solid #ddd; /* borde por defecto */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 40px rgba(0,0,0,0.12);
+}
+
+/* Bordes de color según la plataforma */
+.card.amazon { border-color: orange; }
+.card.bokus { border-color: red; }
+.card.proximo { border-color: #3b82f6; }
+
+/* Card contenido */
+.card-left {
+  flex: 0 0 120px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-left img {
+  max-width: 100%;
+  max-height: 100px;
+}
+
+.card-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 2rem;
+}
+
+.card-right .tip {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.card-right .second-text {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+/* BOTON UIVERSE.IO */
+.button {
+  height: 50px;
+  width: 150px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.5s ease-in-out;
+}
+
+.button:hover {
+  box-shadow: 0.5px 0.5px 50px #707070;
+}
+
+.button.type1::after {
+  content: "¡Gracias!";
+  height: 50px;
+  width: 150px;
+  background-color: #008080;
+  color: #fff;
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  transform: translateY(50px);
+  font-size: 1.2rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.5s ease-in-out;
+}
+
+.button.type1::before {
+  content: "Comprar";
+  height: 50px;
+  width: 150px;
+  background-color: #fff;
+  color: #008080;
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  transform: translateY(0px) scale(1.2);
+  font-size: 1.2rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.5s ease-in-out;
+}
+
+.button.type1:hover::after {
+  transform: translateY(0) scale(1.2);
+}
+
+.button.type1:hover::before {
+  transform: translateY(-50px) scale(0) rotate(120deg);
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .card {
+    flex-direction: column;
+    padding: 1.5rem;
+  }
+
+  .card-left {
+    margin-bottom: 1rem;
+  }
+
+  .card-left img {
+    max-height: 80px;
+  }
+
+  .card-right {
+    align-items: center;
+    text-align: center;
+    padding-left: 0;
+  }
+}
+
+
+/* FOOTER STYLE COMPLETO */
+footer {
+     border-top: 2px solid #333;
+  background: #fff; /* Fondo blanco */
+  padding: 4rem 2rem;
+  box-shadow: 0 -2px 15px rgba(0,0,0,0.05);
+  font-family: 'Crimson Text', serif;
+  color: #333;
+}
+
+footer .footer-container {
+  max-width: 1100px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  text-align: center;
+}
+
+/* Texto intro redes sociales */
+footer .footer-intro p {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+/* Iconos sociales */
+footer .footer-socials {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 1.6rem;
+  color: #555;
+}
+
+footer .footer-socials a {
+  color: inherit;
+  transition: color 0.3s, transform 0.3s;
+}
+
+footer .footer-socials a:hover {
+  color: #0f2a44; /* Azul principal */
+  transform: scale(1.2);
+}
+
+/* Información adicional */
+footer .footer-info p {
+  font-size: 0.95rem;
+  color: #666;
+  max-width: 850px;
+  line-height: 1.7;
+  margin: 1rem 0;
+}
+
+/* Título y derechos */
+footer .footer-text h2 {
+  font-family: 'Libre Baskerville', serif;
+  font-size: 1.4rem;
+  letter-spacing: 0.05em;
+  color: #0f2a44;
+  margin-bottom: 0.3rem;
+}
+
+footer .footer-text p {
+  font-size: 0.85rem;
+  color: #777;
+  letter-spacing: 0.02em;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  footer .footer-socials {
+    font-size: 1.3rem;
+  }
+  footer .footer-info p {
+    font-size: 0.9rem;
+  }
+  footer .footer-text h2 {
+    font-size: 1.2rem;
+  }
+}
+
+/* FADE-IN ANIMATION FOR ELEMENTS APPEARING IN VIEWPORT */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(14px);
+      /* Increased durations by 2000ms to make animation 2s slower */
+      transition: opacity 2800ms cubic-bezier(.2,.9,.2,1), transform 2620ms cubic-bezier(.2,.9,.2,1);
+      will-change: opacity, transform;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .fade-in { transition: none; transform: none; }
+    }
+    </style>
+
+<body>
+<nav>
+  <div class="nav-container">
+    <div class="nav-title">LÍNEAS DE ATENCIÓN</div>
+    <div class="nav-links" id="nav-links">
+      <a href="index.html">Inicio</a>
+      <a href="para_quien.html">Para Quién</a>
+      <a href="autor.html">Autor</a>
+      <a href="adquirir.html" class="active">Adquirir</a>
+    </div>
+    <div class="nav-toggle" id="nav-toggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+</nav>
+
+<section id="adquirir">
+  <h1 class="fade-in">Adquirir Libro</h1>
+  <p class="sub fade-in">Encuentra "Líneas de Atención" en diferentes plataformas</p>
+
+  <div class="cards">
+
+    <!-- AMAZON -->
+    <div class="card amazon fade-in">
+      <div class="card-left">
+        <img src="Imagenes/Amazon_logo.jpg" alt="Amazon">
+      </div>
+      <div class="card-right">
+        <p class="tip" style="font-size: 1.8rem;">Amazon México</p>
+        <p class="second-text" style="font-size: 1.4rem;">Disponible en línea</p>
+        <a href="https://www.amazon.com.mx/Lineas-atenci%C3%B3n-Editorial-Mundo-Latino/dp/B0G62XY4LG" target="_blank">
+          <button class="button type1"></button>
+        </a>
+      </div>
+    </div>
+
+    <!-- BOKUS -->
+    <div class="card bokus fade-in">
+      <div class="card-left">
+        <img src="Imagenes/Bokus_logo.png" alt="Bokus">
+      </div>
+      <div class="card-right">
+        <p class="tip" style="font-size: 1.8rem;">Bokus</p>
+        <p class="second-text" style="font-size: 1.4rem;">Disponible en línea</p>
+        <a href="https://www.bokus.com/bok/9798900307244/lineas-de-atencion/" target="_blank">
+          <button class="button type1"></button>
+        </a>
+      </div>
+    </div>
+
+    <!-- PRÓXIMAMENTE -->
+    <div class="card proximo fade-in">
+      <div class="card-left">
+        <img src="Imagenes/Engranajes.gif" alt="En construcción">
+      </div>
+      <div class="card-right">
+        <p class="tip" style="font-size: 1.8rem;">Próximamente</p>
+        <p class="second-text" style="font-size: 1.4rem;">En más tiendas virtuales y físicas</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+
+
+<!-- FOOTER -->
+<footer class="fade-in">
+  <div class="footer-container">
+    
+    <!-- Introducción redes sociales -->
+    <div class="footer-intro">
+      <p>Síguenos en TikTok para conocer más sobre nuestras actividades, reflexiones y novedades del libro.</p>
+    </div>
+
+    <!-- Iconos -->
+    <div class="footer-socials">
+      <a href="https://www.tiktok.com/@lineas.de.atencin?_r=1&_t=ZP-92OedUjAz6s" target="_blank" aria-label="TikTok">
+        <img src="Imagenes/Tiktok_logo.png" alt="TikTok" style="width:24px; height:24px;">
+      </a>
+    </div>
+
+    <!-- Información de contacto -->
+    <div class="footer-contact">
+      <h3>Información de contacto</h3>
+      <p>📞 +1 707 393 1434</p>
+    </div>
+
+    <!-- Información adicional -->
+    <div class="footer-info">
+      <p>
+        Líneas de Atención es un proyecto que busca transformar la educación a través de la reflexión,
+        la atención plena y la experiencia en aula. Nuestro objetivo es acompañar a docentes,
+        estudiantes y familias en un recorrido de aprendizaje significativo.
+      </p>
+    </div>
+
+    <!-- Título y derechos -->
+    <div class="footer-text">
+      <h2>LÍNEAS DE ATENCIÓN</h2>
+      <p>© 2025 · Todos los derechos reservados</p>
+    </div>
+
+  </div>
+</footer>
+
+<script>
+  const navToggle = document.getElementById("nav-toggle");
+  const navLinks = document.getElementById("nav-links");
+  navToggle.addEventListener("click", () => {
+    navLinks.classList.toggle("active");
+  });
+
+  /* Fade-in on scroll using IntersectionObserver */
+(function(){
+  const elements = document.querySelectorAll('.fade-in');
+  if (!elements.length) return;
+
+  if (!('IntersectionObserver' in window)) {
+    // Fallback: reveal all
+    elements.forEach(el => el.classList.add('visible'));
+    return;
+  }
+
+  const observer = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { root: null, rootMargin: '0px 0px -10% 0px', threshold: 0.12 });
+
+  elements.forEach(el => observer.observe(el));
+})();
+
+  window.onbeforeunload = function () {
+    window.scrollTo(0, 0);
+  };
+</script>
+
+</body>
+</html>
