@@ -153,7 +153,9 @@ nav::after {
     transition: max-height 0.4s ease;
     padding: 0;
     z-index: 999;
-    border-radius: 0 0 10px 10px;    
+    border-radius: 0 0 10px 10px;   
+    border-left: 10px solid var(--azul);
+    border-right: 10px solid var(--azul);
   }
 
   .nav-links a {
@@ -168,7 +170,9 @@ nav::after {
 
   .nav-links.active {
     max-height: 500px;
-    border: 10px solid var(--azul);
+    border-left: 10px solid var(--azul);
+    border-right: 10px solid var(--azul);
+    border-bottom: 10px solid var(--azul);
   }
 }
 
@@ -594,3 +598,4 @@ footer .footer-text p {
 
 </body>
 </html>
+
